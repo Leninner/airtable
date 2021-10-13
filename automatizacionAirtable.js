@@ -2,6 +2,7 @@ const URL = window.location.href;
 
 // Keywords por área
 const tecnologia = [
+  'java',
   'developer',
   'front-end',
   'web',
@@ -31,13 +32,27 @@ const tecnologia = [
   'técnico',
   'tecnologa',
   'tecnóloga',
+  'devops',
 ];
-const ventas = ['ventas', 'comercial', 'vendedor', 'call', 'comerciales', 'mercadeo', 'venta'];
-const marketing = ['marketing', 'brand', 'planner', 'community'];
-const innovacion = ['scrum', 'CTO'];
-const logistica = ['logistica', 'logística'];
-const finanzas = ['financiero', 'credito', 'crédito', 'banca', 'tesorería', 'tesoreria'];
-const ejecutivo = ['gerente', 'ejecutivo', 'ejecutiva', 'jefe', 'jefa', 'lider', 'líder', 'coordinador'];
+const ventas = ['ventas', 'comercial', 'vendedor', 'call', 'comerciales', 'mercadeo', 'venta', 'vendedores'];
+const marketing = ['marketing', 'brand', 'planner', 'community', 'lead', 'ads'];
+const innovacion = ['scrum', 'CTO', 'innovación', 'innovacion'];
+const logistica = ['logistica', 'logística', 'bodega'];
+const finanzas = ['financiero', 'credito', 'crédito', 'banca', 'tesorería', 'tesoreria', 'contable'];
+const ejecutivo = [
+  'gerente',
+  'ejecutivo',
+  'ejecutiva',
+  'jefe',
+  'jefa',
+  'lider',
+  'líder',
+  'coordinador',
+  'administrador',
+];
+
+// Industria
+const industria = ['Confidencial', 'Comercial', 'Servicios', 'Industrial'];
 
 // Funciones para asignar el área en cada plataforma de trabajo
 function isArea(job) {
@@ -60,10 +75,6 @@ function isArea(job) {
   return 'Confidencial';
 }
 
-function isAreaJooble(job) {}
-
-function isAreaComputrabajo(job) {}
-
 // Funciones para buscar empleos en los distintos portales de empleos
 function linkedInFindJobs() {
   const jobs = document.querySelectorAll('.job-card-list__title');
@@ -85,12 +96,13 @@ function linkedInFindJobs() {
         ciudad:
           ciudades[i].outerText.split(',')[0].toString() === 'Ecuador'
             ? 'Remoto'
-            : ciudades[i].outerText.split(',')[0].toString(),
+            : ciudades[i].outerText.split(',')[0].toString().trim(),
         link: jobs[i].href,
         nivel: jobs[i].outerText.split(' ').some((word) => ejecutivo.includes(word.toLowerCase()) == true)
           ? 'Ejecutivo'
           : 'Especialista',
         area: isArea(jobs[i]),
+        industria: industria[Math.floor(Math.random() * industria.length)],
       });
     }
 
@@ -107,8 +119,8 @@ function multitrabajosFindJobs() {
 
     function isCity(value) {
       return value.children[0].children.length > 1
-        ? value.children[0].children[1].textContent.split(',')[0].toString()
-        : value.children[0].textContent.split(',')[0].toString();
+        ? value.children[0].children[1].textContent.split(',')[0].toString().trim()
+        : value.children[0].textContent.split(',')[0].toString().trim();
     }
 
     datos.forEach((value) => {
@@ -121,6 +133,7 @@ function multitrabajosFindJobs() {
           ? 'Ejecutivo'
           : 'Especialista',
         area: isArea(value.children[1]),
+        industria: industria[Math.floor(Math.random() * industria.length)],
       });
     });
     return jobsMultitrabajos;
@@ -135,8 +148,8 @@ function joobleFindJobs() {
 
   function existCities(existCity) {
     return existCity.length > 2
-      ? existCity[1].children[1].childNodes[0].textContent.split(',')[0].toString()
-      : existCity[0].children[0].childNodes[0].textContent.split(',')[0].toString();
+      ? existCity[1].children[1].childNodes[0].textContent.split(',')[0].toString().trim()
+      : existCity[0].children[0].childNodes[0].textContent.split(',')[0].toString().trim();
   }
 
   function findJobs(empleos) {
@@ -152,6 +165,7 @@ function joobleFindJobs() {
             ? 'Ejecutivo'
             : 'Especialista',
           area: isArea(value.children[0]),
+          industria: industria[Math.floor(Math.random() * industria.length)],
         });
       } else {
         let existCity = value.children[1].children[1].children[0].children;
@@ -160,13 +174,14 @@ function joobleFindJobs() {
           empresa: existCity.length > 2 ? existCity[0].outerText : 'Jooble',
           ciudad:
             existCity.length > 2
-              ? existCity[1].children[1].childNodes[0].textContent.split(',')[0].toString()
-              : existCity[0].children[0].childNodes[0].textContent.split(',')[0].toString(),
+              ? existCity[1].children[1].childNodes[0].textContent.split(',')[0].toString().trim()
+              : existCity[0].children[0].childNodes[0].textContent.split(',')[0].toString().trim(),
           link: value.children[0].children[0].children[0].href,
           nivel: value.children[0].outerText.split(' ').some((word) => ejecutivo.includes(word.toLowerCase()) == true)
             ? 'Ejecutivo'
             : 'Especialista',
           area: isArea(value.children[0]),
+          industria: industria[Math.floor(Math.random() * industria.length)],
         });
       }
     });
@@ -206,11 +221,12 @@ function computrabajosFindJobs() {
         empresa: comparador.length > 4 ? comparador[2].children[0].outerText : comparador[1].children[0].outerText,
         ciudad:
           comparador.length > 4
-            ? comparador[2].children[1].outerText.split(',')[0].toString()
-            : comparador[1].children[1].outerText.split(',')[0].toString(),
+            ? comparador[2].children[1].outerText.split(',')[0].toString().trim()
+            : comparador[1].children[1].outerText.split(',')[0].toString().trim(),
         link: comparador.length > 4 ? comparador[1].children[0].href : comparador[0].children[0].href,
         nivel: isNivel(comparador),
         area: isArea(comparador.length > 4 ? comparador[1] : comparador[0]),
+        industria: industria[Math.floor(Math.random() * industria.length)],
       });
     });
 
