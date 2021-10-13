@@ -2,7 +2,7 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from openpyxl import load_workbook, workbook
+from openpyxl import load_workbook
 from datetime import datetime
 
 driver = webdriver.Chrome("C:/Users/USUARIO/Desktop/chromedriver.exe")
@@ -19,11 +19,13 @@ hojas = wb.get_sheet_names()
 nombreHoja = wb.get_sheet_by_name("Jobs")
 wb.close()
 
-for i in range(2, 22):
-    vacante, empresa, ciudad, link, nivel, area = nombreHoja[f'A{i}:F{i}'][0]
+for i in range(2, 4):
+    vacante, empresa, ciudad, link, nivel, area, industria = nombreHoja[f'A{i}:G{i}'][0]
     driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[1]/div/div/div/div/div/div/input").send_keys(datetime.today().strftime("%B-%d-%y"))
     sleep(1)
     driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[2]/div[2]/div/div/div/div/div[1]").send_keys(vacante.value)
+    sleep(1)
+    driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[4]/div[2]/div/div/div/div/div").send_keys(industria.value + Keys.ENTER)
     sleep(1)
     driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[3]/div[2]/div/div/div/div/div[1]").send_keys(empresa.value)
     sleep(1)

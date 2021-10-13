@@ -34,7 +34,7 @@ const tecnologia = [
   'tecnóloga',
   'devops',
 ];
-const ventas = ['ventas', 'comercial', 'vendedor', 'call', 'comerciales', 'mercadeo', 'venta', 'vendedores'];
+const ventas = ['ventas', 'comercial', 'vendedor', 'call', 'comerciales', 'mercadeo', 'venta', 'vendedores', 'sales'];
 const marketing = ['marketing', 'brand', 'planner', 'community', 'lead', 'ads'];
 const innovacion = ['scrum', 'CTO', 'innovación', 'innovacion'];
 const logistica = ['logistica', 'logística', 'bodega'];
