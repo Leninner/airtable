@@ -19,15 +19,19 @@ hojas = wb.get_sheet_names()
 nombreHoja = wb.get_sheet_by_name("Jobs")
 wb.close()
 
-for i in range(2, 23):
-    vacante, empresa, ciudad, link = nombreHoja[f'A{i}:D{i}'][0]
+for i in range(2, 22):
+    vacante, empresa, ciudad, link, nivel, area = nombreHoja[f'A{i}:F{i}'][0]
     driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[1]/div/div/div/div/div/div/input").send_keys(datetime.today().strftime("%B-%d-%y"))
     sleep(1)
     driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[2]/div[2]/div/div/div/div/div[1]").send_keys(vacante.value)
     sleep(1)
-    driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[3]/div[2]/div/div/div/div/div[1]").send_keys(empresa.value)    
+    driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[3]/div[2]/div/div/div/div/div[1]").send_keys(empresa.value)
     sleep(1)
     driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[5]/div[2]/div/div/div/div/div").send_keys(ciudad.value + Keys.ENTER)
+    sleep(1)
+    driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[6]/div[2]/div/div/div/div/div").send_keys(area.value + Keys.ENTER)
+    sleep(1)
+    driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[7]/div[2]/div/div/div/div/div").send_keys(nivel.value + Keys.ENTER)
     sleep(1)
     driver.find_element_by_xpath("/html/body/div[1]/div[6]/div/main/div/div/div[1]/div[8]/div/div/div/input").send_keys(link.value)
     sleep(1)
@@ -36,3 +40,6 @@ for i in range(2, 23):
     sleep(7)
 
 driver.close()
+
+# Entrar al desktop para ejecutar el script
+# Tener cuidado con el rango del loop

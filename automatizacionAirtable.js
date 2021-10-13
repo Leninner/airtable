@@ -1,7 +1,7 @@
 const URL = window.location.href;
 
 // Keywords por área
-const tecnología = [
+const tecnologia = [
   'developer',
   'front-end',
   'web',
@@ -17,17 +17,31 @@ const tecnología = [
   'software',
   'ios',
   'android',
+  'react',
+  'angular',
+  'vue',
+  'node',
+  'python',
+  'ti',
+  'tecnologos',
+  'computacion',
+  'computación',
+  'tecnólogos',
+  'tecnico',
+  'técnico',
+  'tecnologa',
+  'tecnóloga',
 ];
-const ventas = ['ventas', 'comercial', 'vendedor', 'call'];
+const ventas = ['ventas', 'comercial', 'vendedor', 'call', 'comerciales', 'mercadeo', 'venta'];
 const marketing = ['marketing', 'brand', 'planner', 'community'];
 const innovacion = ['scrum', 'CTO'];
 const logistica = ['logistica', 'logística'];
 const finanzas = ['financiero', 'credito', 'crédito', 'banca', 'tesorería', 'tesoreria'];
-const ejecutivo = ['gerente', 'ejecutivo', 'ejecutiva', 'jefe', 'jefa'];
+const ejecutivo = ['gerente', 'ejecutivo', 'ejecutiva', 'jefe', 'jefa', 'lider', 'líder', 'coordinador'];
 
 // Funciones para asignar el área en cada plataforma de trabajo
-function isAreaLinkedIn(job) {
-  if (job.outerText.split(' ').some((word) => tecnología.includes(word.toLowerCase()) == true)) {
+function isArea(job) {
+  if (job.outerText.split(' ').some((word) => tecnologia.includes(word.toLowerCase()) == true)) {
     return 'Tecnología';
   } else if (job.outerText.split(' ').some((word) => ventas.includes(word.toLowerCase()) == true)) {
     return 'Ventas';
@@ -42,9 +56,12 @@ function isAreaLinkedIn(job) {
   } else if (job.outerText.split(' ').some((word) => ejecutivo.includes(word.toLowerCase()) == true)) {
     return 'Dirección';
   }
+
+  return 'Confidencial';
 }
-function isAreaMultitrabajos(job) {}
+
 function isAreaJooble(job) {}
+
 function isAreaComputrabajo(job) {}
 
 // Funciones para buscar empleos en los distintos portales de empleos
@@ -73,7 +90,7 @@ function linkedInFindJobs() {
         nivel: jobs[i].outerText.split(' ').some((word) => ejecutivo.includes(word.toLowerCase()) == true)
           ? 'Ejecutivo'
           : 'Especialista',
-        area: isAreaLinkedIn(jobs[i]),
+        area: isArea(jobs[i]),
       });
     }
 
@@ -87,15 +104,23 @@ function multitrabajosFindJobs() {
   const datos = document.querySelectorAll('.Card__CardContentWrapper-sc-i6v2cb-1');
   function findJobs(datos) {
     let jobsMultitrabajos = [];
+
+    function isCity(value) {
+      return value.children[0].children.length > 1
+        ? value.children[0].children[1].textContent.split(',')[0].toString()
+        : value.children[0].textContent.split(',')[0].toString();
+    }
+
     datos.forEach((value) => {
       jobsMultitrabajos.push({
         vacante: value.children[1].textContent,
         empresa: value.children[0].children.length > 1 ? value.children[0].children[0].textContent : 'Multitrabajos',
-        ciudad:
-          value.children[0].children.length > 1
-            ? value.children[0].children[1].textContent.split(',')[0].toString()
-            : value.children[0].textContent.split(',')[0].toString(),
+        ciudad: isCity(value).includes('Ecuador') ? 'Remoto' : isCity(value),
         link: value.href,
+        nivel: value.children[1].textContent.split(' ').some((word) => ejecutivo.includes(word.toLowerCase()) == true)
+          ? 'Ejecutivo'
+          : 'Especialista',
+        area: isArea(value.children[1]),
       });
     });
     return jobsMultitrabajos;
@@ -118,12 +143,15 @@ function joobleFindJobs() {
     empleos.forEach((value) => {
       if (value.children[1].children[1].children.length > 1) {
         let existCity = value.children[1].children[1].children[1].children;
-
         jobsJooble.push({
           vacante: value.children[0].outerText,
           empresa: existCity.length > 2 ? existCity[0].outerText : 'Jooble',
           ciudad: existCities(existCity),
           link: value.children[0].children[0].children[0].href,
+          nivel: value.children[0].outerText.split(' ').some((word) => ejecutivo.includes(word.toLowerCase()) == true)
+            ? 'Ejecutivo'
+            : 'Especialista',
+          area: isArea(value.children[0]),
         });
       } else {
         let existCity = value.children[1].children[1].children[0].children;
@@ -135,6 +163,10 @@ function joobleFindJobs() {
               ? existCity[1].children[1].childNodes[0].textContent.split(',')[0].toString()
               : existCity[0].children[0].childNodes[0].textContent.split(',')[0].toString(),
           link: value.children[0].children[0].children[0].href,
+          nivel: value.children[0].outerText.split(' ').some((word) => ejecutivo.includes(word.toLowerCase()) == true)
+            ? 'Ejecutivo'
+            : 'Especialista',
+          area: isArea(value.children[0]),
         });
       }
     });
@@ -149,9 +181,26 @@ function computrabajosFindJobs() {
   let jobsComputrabajo = [];
   const datos = document.querySelectorAll('.iO');
 
+  function isNivel(comparador) {
+    if (comparador.length > 4) {
+      if (comparador[1].outerText.split(' ').some((word) => ejecutivo.includes(word.toLowerCase()) == true)) {
+        return 'Ejecutivo';
+      } else {
+        return 'Especialista';
+      }
+    } else {
+      if (comparador[0].outerText.split(' ').some((word) => ejecutivo.includes(word.toLowerCase()) == true)) {
+        return 'Ejecutivo';
+      } else {
+        return 'Especialista';
+      }
+    }
+  }
+
   function findJobs(datos) {
     datos.forEach((value) => {
       let comparador = value.children;
+
       jobsComputrabajo.push({
         vacante: comparador.length > 4 ? comparador[1].outerText : comparador[0].outerText,
         empresa: comparador.length > 4 ? comparador[2].children[0].outerText : comparador[1].children[0].outerText,
@@ -160,6 +209,8 @@ function computrabajosFindJobs() {
             ? comparador[2].children[1].outerText.split(',')[0].toString()
             : comparador[1].children[1].outerText.split(',')[0].toString(),
         link: comparador.length > 4 ? comparador[1].children[0].href : comparador[0].children[0].href,
+        nivel: isNivel(comparador),
+        area: isArea(comparador.length > 4 ? comparador[1] : comparador[0]),
       });
     });
 
