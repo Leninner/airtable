@@ -1,0 +1,67 @@
+How to call a LinkedIn API
+and get a Linkedin OAuth Access Token
+---
+
+Prerequisites:
+LinkedIn Account
+curl
+
+---
+Client Registration
+
+go to:
+https://www.linkedin.com/developers/apps
+
+click on "create new" or use this direct link:
+https://www.linkedin.com/developers/apps/new
+
+What you need:
+
+redirectURI = https://www.selecta.ec
+URLENCODE(redirectURI) = https%3A%2F%2Fwww.selecta.ec%2F
+clientId = 77goaodg2vvbue
+clientSecret = nNf0QspHGByeCYev
+
+
+---
+Authorization Endpoint (Browser)
+
+What you need:
+scope = r_liteprofile
+
+https://www.linkedin.com/oauth/v2/authorization?response_type=code&state=987654321&scope=r_liteprofile&client_id=77goaodg2vvbue&redirect_uri=https%3A%2F%2Fwww.selecta.ec%2F
+
+
+What you need from the response:
+code = AQSWWhTGMNCMdeYBZtcwSL-B6K_7tGNOQz4IlAgcJvHGXvNKyDLTDdy5nbuaKcE5gFXA-r1a3FP5hPbZb3vp69rviGZei5Qc88lWJFnnhwXX87NCgJg4NCWk2cjk5WwMWyrUyRPRK648UPrDBfHn-NNku4aDllmPuRbSbnEpzFbxa1zbI1kgGwE6U1MttKyre_siRCfoCCbZvhjhpXI
+
+---
+Token Endpoint:
+
+curl -ik -X POST https://www.linkedin.com/oauth/v2/accessToken \
+-d grant_type=authorization_code \
+-d code=AQSWWhTGMNCMdeYBZtcwSL-B6K_7tGNOQz4IlAgcJvHGXvNKyDLTDdy5nbuaKcE5gFXA-r1a3FP5hPbZb3vp69rviGZei5Qc88lWJFnnhwXX87NCgJg4NCWk2cjk5WwMWyrUyRPRK648UPrDBfHn-NNku4aDllmPuRbSbnEpzFbxa1zbI1kgGwE6U1MttKyre_siRCfoCCbZvhjhpXI \
+-d redirect_uri=https%3A%2F%2Fwww.selecta.ec%2F \
+-d client_id=77goaodg2vvbue \
+-d client_secret=nNf0QspHGByeCYev
+
+{"access_token":"AQXQoTW6iVtb7gkvDrOMQ69Oxxk_NteewpxgDwFnKuGcuL2229MaHY-jc5xU3ykSnGY9HPiUO-XBfpOm4J9pgC5NTNHLXw2GGhzTY2T79LwxlbBwgbWP-QX4u0-ORNNgXpO2qCXkaDZmfqsNE8BxoY7G_LavT0hjySXcZsAtDZzdJQ3Ljf56fI7vpqtghd4FoaXUTkpH0DrrdaH2DYvE6W3v92QH7xGbJaj0kWfIY2fvN8HLUdbHTqrMadEKWcXGWtoHBYMzYwPwUQXTE5FCqJtVm8dmVGximz-gvH8T14Fw4D-O4Yy0LoRQ4V0Dd20akPbsqihgI1LpkbbW964PqzlseUCLOg","expires_in":5183999}
+
+What you need from the response:
+access_token = 
+
+---
+Resource Access:
+
+curl https://api.linkedin.com/v2/me -H "Authorization: Bearer access_token"
+
+What you need from the response:
+firstname = 
+
+---------
+
+Documentation
+
+https://docs.microsoft.com/en-us/linkedin/shared/authentication/authorization-code-flow
+We are on API v2
+Upgrade notice from v1 to v2: https://developer.linkedin.com/blog/posts/2018/redirecting-oauth-uas
