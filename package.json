@@ -1,0 +1,12 @@
+{
+  "name": "automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "automatizacionAirtable.js",
+  "scripts": {
+    "start": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
