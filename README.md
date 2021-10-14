@@ -8,8 +8,35 @@ Proceso de automatización haciendo uso de:
 - Power Query
 - Selenium
 - openpyxl
+- API DE AIRTABLE
 
-## Proceso de uso de los archivos
+## Proceso para subir empleos con Javascript y API de Airtable
+
+1. Meterse a LinkedIn, Multitrabajos, Computrabajos, Jooble y hacer la búsqueda de empleos
+2. Copiar el script de automatizacionAirtable.js dentro de la consola de los distintos portales
+
+   - Al hacer esto, el script dejará datos copiados en el portapapeles como estos:
+
+   ```javascript
+   [
+     {
+       'Fecha de Publicación de la Vacante': '2021-10-14',
+       Cargo: 'Cajero administrador Loja.',
+       Area: 'Dirección',
+       Empresa: 'Confidencial',
+       Industria: 'Confidencial',
+       'Link de la Oferta':
+         'https://ec.jooble.org/desc/-7664484417097932688?ckey=NONE&rgn=-1&pos=1&elckey=1611359305352127722&p=1&sid=5045236309203598069&age=36&relb=100&brelb=100&bscr=58488.59353290969&scr=58488.59353290969&iid=-4157720841899984438',
+       Nivel: 'Ejecutivo',
+       Ubicación: 'Loja',
+     },
+   ];
+   ```
+
+3. Copiar estos datos en la variable JOBS del archivo sendJobs.js dentro de la carpeta SRC
+4. Ejecutar el código
+
+## Proceso de uso de los archivos con Python
 
 1. Meterse a LinkedIn, Multitrabajos, Computrabajos, Jooble y hacer la búsqueda de empleos
 2. Copiar el script de automatizacionAirtable.js dentro de la consola de los distintos portales
