@@ -51,7 +51,18 @@ const ventas = [
 const marketing = ['marketing', 'brand', 'planner', 'community', 'lead', 'ads'];
 const innovacion = ['scrum', 'CTO', 'innovación', 'innovacion'];
 const logistica = ['logistica', 'logística', 'bodega'];
-const finanzas = ['financiero', 'credito', 'crédito', 'banca', 'tesorería', 'tesoreria', 'contable', 'contabilidad'];
+const finanzas = [
+  'financiero',
+  'credito',
+  'crédito',
+  'banca',
+  'tesorería',
+  'tesoreria',
+  'contable',
+  'contabilidad',
+  'contador',
+  'contadora',
+];
 const ejecutivo = [
   'gerente',
   'ejecutivo',
@@ -64,7 +75,7 @@ const ejecutivo = [
   'administrador',
   'director',
 ];
-const rrhh = ['recruiter', 'reclutador', 'humanos', 'business', 'partner'];
+const rrhh = ['recruiter', 'reclutador', 'humanos', 'business', 'partner', 'humano'];
 
 // Industria
 const industria = ['Confidencial', 'Comercial', 'Servicios', 'Industrial'];
@@ -284,7 +295,6 @@ function findJobs(URL) {
     case URL.includes('jooble'):
       joobleFindJobs();
       break;
-
     case URL.includes('computrabajo'):
       computrabajosFindJobs();
       break;
