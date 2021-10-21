@@ -52,6 +52,7 @@ const marketing = ['marketing', 'brand', 'planner', 'community', 'lead', 'ads'];
 const innovacion = ['scrum', 'CTO', 'innovación', 'innovacion'];
 const logistica = ['logistica', 'logística', 'bodega'];
 const finanzas = [
+  'auditoría',
   'financiero',
   'credito',
   'crédito',
