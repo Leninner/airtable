@@ -4,7 +4,7 @@
   "description": "",
   "main": "automatizacionAirtable.js",
   "scripts": {
-    "start": ""
+    "start": "git add . \ngit commit -m 'Update' \ngit push"
   },
   "keywords": [],
   "author": "",
