@@ -43,7 +43,7 @@ Proceso de automatización haciendo uso de:
 
    - Al hacer esto, el script dejará datos copiados en el portapapeles como estos:
 
-   ```
+   ```json
    [
     {
         "vacante": "SE SOLICITA ASISTENTE CONTABLE - ADMINISTRATIVA",
@@ -59,7 +59,7 @@ Proceso de automatización haciendo uso de:
 
 3. Esos datos deben ser copiados dentro de la variable DICT dentro de la carpeta src/index.js
 
-```
+```js
 const dict = [
   {
     vacante: 'SE SOLICITA ASISTENTE CONTABLE - ADMINISTRATIVA',
